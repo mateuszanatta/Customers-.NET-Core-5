@@ -2,7 +2,7 @@
 
 <h3 align="center">Customers .NET Core 5</h3>
 <p align="center">
-    A simple login/customers listing in .NET Core 5 using Ubuntu 20.04 and SQL Server
+    A simple login/customers listing in .NET Core 5 and Entity Framework Core using Ubuntu 20.04 and SQL Server
 </p>
 
 
