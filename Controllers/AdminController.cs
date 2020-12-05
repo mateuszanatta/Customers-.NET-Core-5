@@ -57,11 +57,11 @@ namespace Customers.Controllers
                     TempData["errorMsg"] = "User not found";
                     return RedirectToAction("Index", "Admin");
                 }
-            }catch(Exception){
+            }catch(Exception ex){
                 TempData["error"] = true;
                 HttpContext.Session.SetString("authUser", "");
 
-                TempData["errorMsg"] = "Forbidden! Try again!";
+                TempData["errorMsg"] = "Connection Timed Out! Try again!";
                 return RedirectToAction("Index", "Admin");
             }
             

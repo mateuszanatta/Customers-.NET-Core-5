@@ -32,11 +32,14 @@ namespace Customers
             //Change dbUser and dbPassword with your credentials
             string dbUser     = "";
             string dbPassword = "";
+            string dbServer   = "Server=localhost,1433";
             
             string connectionString = Configuration.GetConnectionString("CustomerContext");
             connectionString = connectionString.Replace("%CONTENTROOTPATH%", _webRootPath)
                                                 .Replace("%DBUSER%", dbUser)
-                                                .Replace("%DBPASS%", dbPassword);
+                                                .Replace("%DBPASS%", dbPassword)
+                                                .Replace("%SERVER%", dbServer);
+                                                
 
             services.AddDbContext<CustomersContext>(options => 
                 options.UseSqlServer(connectionString));
