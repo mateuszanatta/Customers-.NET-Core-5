@@ -1,0 +1,123 @@
+@model IEnumerable<Customers.Models.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customers</h1>
+
+@* <p>
+    <a asp-action="Create">New Customer</a>
+</p> *@
+<form asp-action="Index" method="get">
+    <div class="form-row">
+        <div class="form-group col-md-12">
+            <label for="name">Name</label>
+            <input type="text" class="form-control form-control-sm" name="SearchName" value="@ViewData["CurrentFilter"]" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="city">City</label>
+            <select class="form-control form-control-sm" name="SearchCity" asp-items="@(new SelectList(ViewBag.city,"Id","Name"))"></select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="region">Region</label>
+            <select class="form-control form-control-sm" name="SearchRegion" asp-items="@(new SelectList(ViewBag.region,"Id","Name"))"></select>  
+        </div>
+        <div class="form-group col-md-3">
+            <label for="gender">Gender</label>
+            <select class="form-control form-control-sm" name="SearchGender" asp-items="@(new SelectList(ViewBag.gender,"Id","Name"))"></select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="classification">Classification</label>
+            <select class="form-control form-control-sm"  name="SearchClassification" asp-items="@(new SelectList(ViewBag.classification,"Id","Name"))"></select>
+        </div>
+        <div class="form-group col-md-3">
+            <label for="startdate">Start Date</label>
+            <input class="form-control form-control-sm" id="startdate" name="startdate" type="date" value="@ViewData["CurrentStartDate"]" />
+        </div>
+        <div class="form-group col-md-3">
+            <label for="enddate">End Date</label>
+            <input class="form-control form-control-sm" id="enddate" name="enddate" type="date" value="@ViewData["CurrentEndDate"]" />
+        </div>
+        @if(ViewBag.LoggedUser.UserRole.isAdmin){
+            <div class="form-group col-md-6">
+                <label for="seller">Seller</label>
+                <select class="form-control form-control-sm" name="SearchSeller" asp-items="@(new SelectList(ViewBag.seller,"Id","Login"))"></select>  
+            </div>
+        }
+    </div>
+    <input type="submit" value="Search" class="btn btn-primary" /> 
+    <a asp-action="Index" class="btn btn-default" role="button">Reset</a>
+</form>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Classification
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                Gender
+            </th>
+            <th>
+                City
+            </th>
+            <th>
+                Region
+            </th>
+            <th>
+                Last Purchase
+            </th>
+            @if(ViewBag.LoggedUser.UserRole.isAdmin){
+            <th>
+                Seller
+            </th>
+            }
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Classification.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.City.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Region.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastPurchase)
+            </td>
+            @if(ViewBag.LoggedUser.UserRole.isAdmin){
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Login)
+                </td>
+            }
+            
+            @* <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td> *@
+        </tr>
+}
+    </tbody>
+</table>
